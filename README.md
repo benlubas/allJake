@@ -1,5 +1,4 @@
 # allJake
 
 some games for 
-
-itsalljake.com
+(itsalljake.com)
