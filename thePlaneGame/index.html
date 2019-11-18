@@ -1,0 +1,110 @@
+<html>
+  <head>
+    <title>Plane Game</title>
+  </head>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="scripts/b5.js"></script>
+  <script src="scripts/Plane.js"></script>
+  <body>
+    
+  </body>
+  <script>
+    /* RECORD:
+      -- 21 Seconds: Ben Lubas
+    */
+    
+    createCanvas(400, 400);
+    con = getCon();  
+
+    let score = 0; 
+    let gameover = false; 
+
+    function Plane(x, y, color){
+      this.pos = new Point(x, y); 
+      this.color = color; 
+      this.radius = 5; 
+
+      this.draw = function(){
+        // filled, x, y, radius, color, weight
+        circle(true, this.pos.x, this.pos.y, this.radius, "red", 2); 
+      }
+      this.move = function(){
+        this.pos.add(WASD_Move(2.25)); 
+      }
+    }
+    function Astroid(pos, velMag, playerPos){
+      this.pos = pos; 
+      this.radius = 3; 
+      this.vel = new Vector(velMag, getAngleDeg(this.pos, playerPos) + ran(-10,10), getQuadrent(this.pos, playerPos)); 
+
+      this.move = function(){
+        this.pos.addVect(this.vel); 
+      }
+      this.draw = function(){
+        circle(true, this.pos.x, this.pos.y, this.radius, 'white', 1); 
+      }
+    }
+    const getSpawnLoc = function(){
+      let q = either(ran(-20, 0), ran(400, 420)); 
+      let r = ran(0, 400); 
+
+      return either(new Point(q, r), new Point(r, q)); 
+    }
+    const spawn = function(playerPos){
+      a.push(new Astroid(getSpawnLoc(), random(1, 1.5), playerPos));
+    }
+
+    let player = new Plane(200, 200, "blue"); 
+    let a = []; 
+    for(let i = 0; i < 10; i++){
+      spawn(player.pos);
+    }
+
+    const update = function(){
+      player.move(); 
+      for(let i = 0; i < a.length; i++){
+        a[i].move(); 
+      }
+
+      //check collisions
+      for(let i = 0; i < a.length; i++){
+        if(a[i].pos.dist(player.pos) < player.radius + a[i].radius){
+          gameover = true; 
+        }
+      }
+
+    }
+    const draw = function(){
+      background("#414141")
+      player.draw(); 
+      for(let i = 0; i < a.length; i++){
+        a[i].draw(); 
+      }
+
+      if(gameover){
+        background("black"); 
+        canvasText("Game Over", new Point(75, 200), "Times New Roman", 50, "red");
+        canvasText("Score: " + Math.floor(score / 60), new Point(165, 235), "Times New Roman", 20, "red");
+        clearInterval(spawnLoop);
+        clearInterval(animLoop);
+      }
+      
+    }
+
+    let spawnLoop = setInterval( () => {
+      spawn(player.pos);
+    }, 1000/13);
+
+    let animLoop = setInterval( () => {
+      update(); 
+      draw(); 
+      score ++; 
+
+
+    }, 1000/60); 
+  
+  </script>
+  
+
+</html>
