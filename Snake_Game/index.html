@@ -1,90 +1,52 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-      <title>Snake</title>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-      <script src="scripts/b5.js"></script>
-      <script src="scripts/Snake.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <link rel="stylesheet" href="styles/main.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <title>Snake</title>
   </head>
   <body>
+    <h1>Settings</h1>
+    <hr />
+    <form method="get" action="./play.html">
+      <div class="input-group">
+        <label for="wrap">Wrap: </label>
+        Yes: <input type="radio" name="wrap" id="yWrap" value="yes" />
+        <!--prettier-ignore-->
+        No:
+        <input type="radio" name="wrap" id="nWrap" value="no" />
+      </div>
+      <div class="input-group">
+        <label for="speed">Speed: </label>
+        <input
+          type="range"
+          name="speed"
+          id="speed"
+          min="1"
+          max="12"
+          value="6"
+        />
+        <div id="speedDisp">6 (default)</div>
+      </div>
+      <button type="submit" id="play">Play!</button>
+    </form>
     <script>
-      let cWidth = 400; 
-      let cHeight = 400; 
-      let cellH = 25; 
-      let cellW = 25;
-      createCanvas(400, 400); 
-      con = getCon();
-      let gridW = cWidth / cellW;
-      let gridH = cHeight / cellH
-      var foodExists = true; 
-      let foodPos = new Point(1, 4); 
-      let gameover = false; 
-
-      let main = new Snake(Math.floor(gridH/2), Math.floor(gridW/2), 1);
-      main.positions.push(new Point(5, 5)); 
-
-
-
-
-      const update = function () {
-        if(!foodExists){
-          foodPos = new Point(ran(gridW - 1), ran(gridH - 1))
-          foodExists = true; 
+      $(document).ready(function() {
+        $("#nWrap").trigger("click");
+      });
+      const range = document.querySelector("#speed");
+      range.value = 6;
+      const output = document.querySelector("#speedDisp");
+      range.addEventListener("input", function() {
+        output.innerHTML = range.value;
+        if (range.value === "6") {
+          output.innerHTML = "6 (default)";
         }
-        main.move();
-        main.update(foodPos)
-
-        // collision detection. 
-        if(arrPointDupCheck(main.positions)){
-          gameover = true; 
-        }
-        for(let i = 0; i < main.positions.length; i++) {
-          if(main.positions[i]. x < 0 || main.positions[i].x >= gridW || main.positions[i].y < 0 || main.positions[i].y >= gridH) {
-            gameover = true; 
-          }
-        }
-        
-
-
-      }
-
-      const draw = function() {
-        background("#515151");
-
-        rect(foodPos.x * cellW, foodPos.y * cellH, cellW, cellH, 'red')
-
-
-        let n = main.len; 
-        for(let i = 0; i < main.positions.length; i++) {
-          let r = main.positions[i].x; 
-          let c = main.positions[i].y; 
-          rect(r * cellW +1, c * cellH+1, cellW-2, cellH-2, `hsla(${180-5*n}, 100%, 50%, 1)`); 
-          n--;
-        }
-        canvasText("Score: "+ main.len, new Point(5,20), "Times New Roman", 14, "white");
-
-        if(gameover){
-          background("#000000"); 
-          canvasText("Game Over", new Point(75,200), "Times New Roman", 50, "red");
-          canvasText("Score: "+ main.len, new Point(165, 235), "Times New Roman", 20, "red"); 
-
-          clearInterval(inputLoop); 
-          clearInterval(animLoop);
-        }
-      }
-      
-      animLoop = setInterval( () => {
-        update(); 
-        main.lock = false; 
-        draw(); 
-      }, 1000/6);
-
-      inputLoop = setInterval( () => {
-        main.move();
-      }, 1000/120);
-
+      });
     </script>
   </body>
 </html>
-
-
-
