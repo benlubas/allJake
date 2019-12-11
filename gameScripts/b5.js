@@ -101,10 +101,17 @@ function end(context) {
   if (context == undefined) con.closePath();
   else context.closePath();
 }
-function canvasText(text, pos, font, size, color) {
+function canvasText(text, pos, font, size, color, options) {
+  options = { center: true, ...options };
   con.font = size + "px " + font;
   con.fillStyle = color;
-  con.fillText(text, pos.x, pos.y);
+  let width = con.measureText(text).width;
+  let height = size;
+  if (options.center) {
+    con.fillText(text, pos.x - width / 2, pos.y - height / 2);
+  } else {
+    con.fillText(text, pos.x, pos.y);
+  }
 }
 function circle(filled, x, y, radius, color, weight) {
   if (

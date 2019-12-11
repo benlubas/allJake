@@ -25,15 +25,16 @@
       ...urlParser(currentURL)
     };
 
-    createCanvas(400, 400);
+    const cWidth = 400;
+    createCanvas(cWidth, cWidth);
     con = getCon();
 
     let score = 0;
     let gameover = false;
 
     const getSpawnLoc = function() {
-      let q = either(ran(-20, 0), ran(400, 420));
-      let r = ran(0, 400);
+      let q = either(ran(-20, 0), ran(cWidth, cWidth + 20));
+      let r = ran(0, cWidth);
 
       return either(new Point(q, r), new Point(r, q));
     };
@@ -67,24 +68,24 @@
       }
     };
     const draw = function() {
-      background("#414141");
+      background("#414141", cWidth, cWidth);
       player.draw();
       for (let i = 0; i < a.length; i++) {
         a[i].draw();
       }
 
       if (gameover) {
-        background("#00000075");
+        background("#00000075", cWidth, cWidth);
         canvasText(
           "Game Over",
-          new Point(75, 200),
+          new Point(cWidth / 2, 200),
           "Times New Roman",
           50,
           "#DD3333"
         );
         canvasText(
           "Score: " + Math.floor(score / 60),
-          new Point(165, 235),
+          new Point(cWidth / 2, 235),
           "Times New Roman",
           20,
           "#DD3333"
@@ -99,14 +100,14 @@
     draw_WASD(new Point(170, 50));
     canvasText(
       "Use WASD To Move",
-      new Point(115, 240),
+      new Point(cWidth / 2, 240),
       "times",
       20,
       gamerule.color
     );
     canvasText(
       "Press W A S or D to Start",
-      new Point(95, 275),
+      new Point(cWidth / 2, 275),
       "times",
       20,
       gamerule.color

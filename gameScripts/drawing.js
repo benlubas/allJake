@@ -34,10 +34,34 @@ function draw_WASD(pos) {
     thickness,
     fillColor
   );
-  canvasText("W", { x: 184, y: 93 }, "arial", 35, "white");
-  canvasText("A", { x: 117, y: 165 }, "arial", 35, "white");
-  canvasText("S", { x: 188, y: 165 }, "arial", 35, "white");
-  canvasText("D", { x: 260, y: 165 }, "arial", 35, "white");
+  canvasText(
+    "W",
+    { x: pos.x + size / 2, y: pos.y + size },
+    "arial",
+    35,
+    "white"
+  );
+  canvasText(
+    "A",
+    { x: pos.x - size * 1.2 + size / 2, y: pos.y + size * 1.2 + size },
+    "arial",
+    35,
+    "white"
+  );
+  canvasText(
+    "S",
+    { x: pos.x + size / 2, y: pos.y + size * 1.2 + size },
+    "arial",
+    35,
+    "white"
+  );
+  canvasText(
+    "D",
+    { x: pos.x + size * 1.2 + size / 2, y: pos.y + size * 1.2 + size },
+    "arial",
+    35,
+    "white"
+  );
 }
 
 const square_rounded = (x, y, w, h, rad, color, borderWidth, fillColor) => {
