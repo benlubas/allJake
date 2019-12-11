@@ -7,6 +7,21 @@
 	JQueary:
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 */
+const WASD_Move = function(speed) {
+  let x = 0;
+  let y = 0;
+  if (k.w) y -= 1;
+  if (k.s) y += 1;
+  if (k.a) x -= 1;
+  if (k.d) x += 1;
+
+  if (x === 0 || y === 0) return new Point(x * speed, y * speed);
+  else
+    return new Point(
+      speed * x * (Math.sqrt(2) / 2),
+      speed * y * (Math.sqrt(2) / 2)
+    );
+};
 
 const ran = function(min, max) {
   if (max == undefined) {

@@ -2,27 +2,14 @@
   <head>
     <title>Snake</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="scripts/b5.js"></script>
+    <script src="./../gameScripts/b5.js"></script>
     <script src="scripts/Snake.js"></script>
-    <link rel="stylesheet" href="./styles/main.css" />
+    <script src="./../gameScripts/urlParser.js"></script>
+    <link rel="stylesheet" href="./../gameStyles/main.css" />
   </head>
   <body class="game-body">
     <script>
       const currentURL = window.location.href;
-
-      const urlParser = url => {
-        const vars = url.substr(url.indexOf("?") + 1).split("&");
-        let jsonStr = "{";
-        for (let l = 0; l < vars.length; l++) {
-          const v = vars[l];
-          // prettier-ignore
-          jsonStr += `"${v.substr(0, v.indexOf("="))}":"${v.substr(v.indexOf("=") + 1)}"`;
-          if (l < vars.length - 1) jsonStr += ",";
-        }
-        jsonStr += "}";
-        return JSON.parse(jsonStr);
-      };
-
       const gamerule = {
         speed: 6,
         wrap: "no",
@@ -154,8 +141,8 @@
     </script>
     <br />
     <div>
-      <div id="play-again" class="snake-btn">Play Again!</div>
-      <div id="settings" class="snake-btn">Settings</div>
+      <div id="play-again" class="game-btn">Play Again!</div>
+      <div id="settings" class="game-btn">Settings</div>
     </div>
     <script>
       const playAgain = document.querySelector("#play-again");
