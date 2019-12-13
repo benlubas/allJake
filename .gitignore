@@ -1,0 +1,7 @@
+
+./styles.css.map
+thePlaneGame/scripts/bot.js
+./.gitignore
+./server/package-lock.json
+./server/node_modules
+./server/.env
