@@ -1,0 +1,63 @@
+$bg: #333333;
+$pri: #c898f0;
+
+* {
+  margin: 0;
+  padding: 0;
+  top: 0;
+  left: 0;
+}
+body {
+  scroll-snap-type: y proximity;
+  scroll-snap-stop: always;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.container {
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .title {
+    display: inline;
+    padding: 25px;
+    font-size: 2.1rem;
+  }
+  .content {
+    max-width: 720px;
+    font-size: 1.2rem;
+  }
+}
+@mixin container($bg, $color) {
+  height: 25vh;
+  background: $bg;
+  color: $color;
+}
+.main {
+  @include container($bg, $pri);
+  height: 100vh;
+}
+.minesweeper {
+  @include container(white, $pri);
+}
+.snake {
+  @include container($bg, white);
+}
+.plane {
+  @include container(white, $pri);
+}
+.down {
+  width: 40px;
+  height: 40px;
+  background: #8717e4;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+  position: absolute;
+  top: calc(100vh - 50px);
+  left: auto;
+}
